@@ -40,15 +40,15 @@ if(!norunFlag) {
 				return currentObject;
 			});
 		}
-		
+
 		String.prototype.renderTip = function (context) {
 			return renderTip(this, context);
 		};
-		
+
 		$(document).on('copy', function () {
 			showMessage('你都复制了些什么呀，转载要记得加上出处哦~', 5000);
 		});
-		
+
 		function initTips() {
 			$.ajax({
 				cache: true,
@@ -100,7 +100,7 @@ if(!norunFlag) {
 			});
 		}
 		initTips();
-	
+
 		let now = (new Date()).getHours();
 		let text = '';
 		if (now > 23 || now <= 5) {
@@ -124,11 +124,11 @@ if(!norunFlag) {
 		}
 		showMessage(text, 12000);
 	})();
-	
+
 	liveTlakTimer = setInterval(function() {
 		showHitokoto();
 	}, 15000);
-	
+
 	function showHitokoto() {
 		if(sessionStorage.getItem("Sleepy")!=="1") {
 			if(!AITalkFlag) {
@@ -147,7 +147,7 @@ if(!norunFlag) {
 			//console.log(sleepTimer_);
 		}
 	}
-	
+
 	function checkSleep() {
 		let sleepStatu = sessionStorage.getItem("Sleepy");
 		if(sleepStatu!=='1') {
@@ -157,7 +157,7 @@ if(!norunFlag) {
 			sleepTimer_= null;
 		}
 	}
-	
+
 	function showMessage(text, timeout) {
 		if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
 		//console.log('showMessage', text);
@@ -170,13 +170,13 @@ if(!norunFlag) {
 	function talkValTimer() {
 		$('#live_talk').val('1');
 	}
-	
+
 	function hideMessage(timeout) {
 		//$('.message').stop().css('opacity', 1);
 		if (timeout === null) timeout = 5000;
 		$('.message').delay(timeout).fadeTo(200, 0);
 	}
-	
+
 	function initLive2d () {
 		$('#hideButton').on('click', function() {
 			if(AIFadeFlag) {
@@ -313,4 +313,4 @@ if(!norunFlag) {
 			}
 		}
 	});
-}
+} 
