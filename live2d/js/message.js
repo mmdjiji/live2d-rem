@@ -1,6 +1,7 @@
-const message_Path = 'https://cdn.jsdelivr.net/gh/mmdjiji/live2d-rem@master/live2d/';
-const userAgent = window.navigator.userAgent.toLowerCase();
+let home_Path = document.location.protocol +'//' + window.document.location.hostname +'/';
 
+let userAgent = window.navigator.userAgent.toLowerCase();
+//console.log(userAgent);
 let norunAI = [ "android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser" , "msie", "trident/7.0"];
 let norunFlag = false;
 
@@ -54,6 +55,25 @@ if(!norunFlag) {
 				url: message_Path + 'message.json',
 				dataType: "json",
 				success: function (result) {
+				  // $.each(result.mouseover, function (index, tips) {
+					// 	$(tips.selector).mouseover(function () {
+					// 		let text = tips.text;
+					// 		if(Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1)-1];
+					// 		text = text.renderTip({text: $(this).text()});
+					// 		showMessage(text, 3000);
+					// 		talkValTimer();
+					// 		clearInterval(liveTlakTimer);
+					// 		liveTlakTimer = null;
+					// 	});
+					// 	$(tips.selector).mouseout(function () {
+					// 		showHitokoto();
+					// 		if(liveTlakTimer == null) {
+					// 			liveTlakTimer = window.setInterval(function() {
+					// 				showHitokoto();
+					// 			}, 15000);
+					// 		};
+					// 	});
+					// });
 					$.each(result.click, function (index, tips) {
 						$(tips.selector).click(function () {
 							if(hitFlag) {
@@ -124,6 +144,7 @@ if(!norunFlag) {
 					checkSleep();
 				}, 200);
 			}
+			//console.log(sleepTimer_);
 		}
 	}
 	
@@ -139,15 +160,19 @@ if(!norunFlag) {
 	
 	function showMessage(text, timeout) {
 		if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
+		//console.log('showMessage', text);
 		$('.message').stop();
 		$('.message').html(text);
 		$('.message').fadeTo(200, 1);
+		//if (timeout === null) timeout = 5000;
+		//hideMessage(timeout);
 	}
 	function talkValTimer() {
 		$('#live_talk').val('1');
 	}
 	
 	function hideMessage(timeout) {
+		//$('.message').stop().css('opacity', 1);
 		if (timeout === null) timeout = 5000;
 		$('.message').delay(timeout).fadeTo(200, 0);
 	}
@@ -195,7 +220,8 @@ if(!norunFlag) {
 				$('body').addClass(dataType);
 			}
 		});
-    
+
+		//获取位置
 		let landL = sessionStorage.getItem("historyWidth");
 		let landB = sessionStorage.getItem("historyHeight");
 		if(!landL || !landB) {
@@ -204,7 +230,7 @@ if(!norunFlag) {
 		}
 		$('#landlord').css('left', landL + 'px');
 		$('#landlord').css('bottom', landB + 'px');
-
+		//移动
 		function getEvent() {
 			return window.event || arguments.callee.caller.arguments[0];
 		}
@@ -257,7 +283,7 @@ if(!norunFlag) {
 	}
 	$(document).ready(function() {
 		let AIimgSrc = [
-			message_Path + "model/rem/remu2048/texture_00.png"
+			home_Path + message_Path + "model/rem/remu2048/texture_00.png"
 		]
 		let images = [];
 		let imgLength = AIimgSrc.length;
